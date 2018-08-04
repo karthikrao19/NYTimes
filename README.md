@@ -4,11 +4,13 @@ Assessment_Karthik Rao
 
 Steps to run the project:
 
-step1: clone/Download the repository into your local computer 
-step2: open with project in android studio 
-step3:click on run button by connecting physical device to your system
+step1: clone/Download the repository into your local computer     
+step2: open with project in android studio      
+step3:click on run button by connecting physical device to your system    
 
 Technical aspects:
+
+Used MVP Architecture
 
 USed Library
 1. Retrofit: To fetch the data from NY Times server
