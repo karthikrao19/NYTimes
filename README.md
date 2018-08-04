@@ -1,5 +1,5 @@
 # NYTimes
-# Assessment- Load the Data with Recycler view
+Assessment- Load the Data with Recycler view
 
 
 Steps to run the project:
