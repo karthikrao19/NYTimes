@@ -1,12 +1,12 @@
 # NYTimes
-Assessment_Karthik Rao
+# Assessment- Load the Data with Recycler view
 
 
-Steps to run the project:
+# Steps to run the project:
 
-step1: clone/Download the repository into your local computer     
-step2: open with project in android studio      
-step3:click on run button by connecting physical device to your system    
+# Step1: Clone/Download the repository into your local computer     
+# Step2: Open with project in android studio      
+# Step3: Click on run button by connecting physical device to your system    
 
 Technical aspects:
 
