@@ -1,4 +1,4 @@
-package app.softvison.com.redmartTsk;
+package app.task.com.redmartTsk;
 
 import org.junit.Test;
 
