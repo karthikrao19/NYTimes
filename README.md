@@ -1,5 +1,4 @@
-# NYTimes
-Assessment- Load the Data with Recycler view
+# Load the Data with Recycler view
 
 
 Steps to run the project:
@@ -18,5 +17,10 @@ USed Library
 3. Recyclerview: Display list of Articles
 4. Cardview: To Design the Row view
 5. Butterknife: For View injection
+6. JUnit
+7. Espresso
 
-I did not cover unit test cases due to Release work in office.
+
+Update:
+
+Added the Unit test case for the project. 
