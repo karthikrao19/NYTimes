@@ -2,7 +2,7 @@ package app.task.com.softTsk.Home;
 
 import android.util.Log;
 
-import app.task.com.softTsk.Model.ArticleResponse;
+import app.task.com.softTsk.Model.TelResponse;
 import app.task.com.softTsk.Network.ApiClient;
 import app.task.com.softTsk.Network.ApiInterface;
 import retrofit2.Call;
@@ -28,21 +28,21 @@ public class HomePresenter implements HomePresenterInfc{
             if (homeView != null) {
                 homeView.showProgress();
                 ApiInterface apiService = ApiClient.createService(ApiInterface.class);
-                Call<ArticleResponse> call = apiService.getArticles();
+                Call<TelResponse> call = apiService.getArticles();
                 Log.e("TAG**URL", call.request().url().toString());
-                call.enqueue(new Callback<ArticleResponse>() {
+                call.enqueue(new Callback<TelResponse>() {
                     @Override
-                    public void onResponse(Call<ArticleResponse> call, Response<ArticleResponse> response) {
+                    public void onResponse(Call<TelResponse> call, Response<TelResponse> response) {
 
-                        ArticleResponse articleList = response.body();
+                        TelResponse articleList = response.body();
 
                         homeView.hideProgress();
 
-                        homeView.onResponse(articleList.getResults());
+                        homeView.onResponse(articleList);
                     }
 
                     @Override
-                    public void onFailure(Call<ArticleResponse> call, Throwable t) {
+                    public void onFailure(Call<TelResponse> call, Throwable t) {
                         // the network call was a failure
                         homeView.hideProgress();
                         homeView.onFailure(t);

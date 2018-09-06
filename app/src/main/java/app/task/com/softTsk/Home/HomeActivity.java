@@ -2,23 +2,22 @@ package app.task.com.softTsk.Home;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 import java.util.List;
 
-import app.task.com.softTsk.Model.Result;
+import app.task.com.softTsk.Model.DetailsResponse;
+import app.task.com.softTsk.Model.TelResponse;
 import app.task.com.softTsk.Network.ErrorUtils;
 import app.task.com.softTsk.R;
 import app.task.com.softTsk.Utils.ConnectionDetector;
 import app.task.com.softTsk.Utils.Util;
-import app.task.com.softTsk.ViewManager.ViewManager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -27,8 +26,8 @@ public class HomeActivity extends AppCompatActivity implements HomeView{
     @BindView(R.id.recyclerView)
     RecyclerView recyclerViewList;
 
-    @BindView(R.id.fab)
-    FloatingActionButton fab;
+    @BindView(R.id.swiperefresh)
+    SwipeRefreshLayout swiperefresh;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -45,6 +44,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView{
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
 
+        toolbar.setTitle("Telstra");
         setSupportActionBar(toolbar);
         pd = new Util().waitingMessage(HomeActivity.this);
 
@@ -54,13 +54,16 @@ public class HomeActivity extends AppCompatActivity implements HomeView{
 
 
         homePresenter = new HomePresenter(this);
+
+        // To load home page
         loadHomePage();
 
-
-        fab.setOnClickListener(new View.OnClickListener() {
+        // To refresh the list
+        swiperefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onClick(View view) {
+            public void onRefresh() {
                 loadHomePage();
+                swiperefresh.setRefreshing(false);
             }
         });
     }
@@ -96,11 +99,11 @@ public class HomeActivity extends AppCompatActivity implements HomeView{
     }
 
     @Override
-    public void onResponse(List<Result> productLst) {
+    public void onResponse(TelResponse productLst) {
         try {
             if (productLst != null) {
-               // ProductList productList = response.body();
-                onListLoadData(productLst);
+                toolbar.setTitle(productLst.getTitle());
+                onListLoadData(productLst.getResults());
             } else {
                 Toast.makeText(this, "Please try Later", Toast.LENGTH_SHORT).show();
             }
@@ -118,12 +121,12 @@ public class HomeActivity extends AppCompatActivity implements HomeView{
         Log.e("onFailure", "" + t);
     }
 
-    private void onListLoadData(List<Result> productList) {
+    private void onListLoadData(List<DetailsResponse> productList) {
+
         adapter = new HomeAdapter(getApplicationContext(), productList, new HomeAdapter.OnItemClickListener() {
             @Override
-            public void onClick(Result products) {
-                String url = products.getUrl();
-                new ViewManager().gotoProductDetailsView(HomeActivity.this, url);
+            public void onClick(DetailsResponse products) {
+                Toast.makeText(HomeActivity.this, products.getTitle(), Toast.LENGTH_SHORT).show();
             }
         });
 

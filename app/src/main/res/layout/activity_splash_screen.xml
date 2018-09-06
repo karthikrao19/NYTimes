@@ -15,5 +15,5 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:textSize="50sp"
-        android:text="NY Times" />
+        android:text="Telstra" />
 </RelativeLayout>

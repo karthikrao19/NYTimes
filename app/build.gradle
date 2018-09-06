@@ -4,13 +4,15 @@ android {
     compileSdkVersion 26
     defaultConfig {
         applicationId "app.task.com.softTsk"
-        minSdkVersion 23
+        minSdkVersion 21
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
-        buildConfigField "String", "BASE_URL", "\"http://api.nytimes.com/svc/mostpopular/v2/mostviewed/\""
+        //buildConfigField "String", "BASE_URL", "\"http://api.nytimes.com/svc/mostpopular/v2/mostviewed/\""
+        buildConfigField "String", "BASE_URL", "\"https://dl.dropboxusercontent.com/s/\""
+        //
 
         // Enabling multidex support.
         multiDexEnabled true
@@ -66,7 +68,7 @@ dependencies {
 
     // add this for webview testing support
     androidTestImplementation 'com.android.support.test.espresso:espresso-web:2.2.2'
-    androidTestCompile 'com.android.support.test.espresso:espresso-contrib:2.2.2', {
+    androidTestImplementation 'com.android.support.test.espresso:espresso-contrib:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
         exclude group: 'com.android.support', module: 'support-v4'
         exclude group: 'com.android.support', module: 'design'

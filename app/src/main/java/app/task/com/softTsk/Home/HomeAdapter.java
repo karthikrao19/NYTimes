@@ -13,7 +13,7 @@ import com.bumptech.glide.request.RequestOptions;
 
 import java.util.List;
 
-import app.task.com.softTsk.Model.Result;
+import app.task.com.softTsk.Model.DetailsResponse;
 import app.task.com.softTsk.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,10 +24,10 @@ import butterknife.ButterKnife;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     private final OnItemClickListener listener;
-    private List<Result> productLists;
+    private List<DetailsResponse> productLists;
     private Context context;
 
-    public HomeAdapter(Context context, List<Result> data, OnItemClickListener listener) {
+    public HomeAdapter(Context context, List<DetailsResponse> data, OnItemClickListener listener) {
         this.productLists = data;
         this.listener = listener;
         this.context = context;
@@ -41,19 +41,22 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(HomeAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, int position) {
 
-        final Result products = productLists.get(position);
+        final DetailsResponse products = productLists.get(position);
         holder.click(products, listener);
-        holder.productName.setText(productLists.get(position).getTitle());
-        holder.descrption.setText(productLists.get(position).getByline());
-        holder.published_date.setText(productLists.get(position).getPublishedDate());
-        String images = productLists.get(position).getMedia().get(0).getMediaMetadata().get(0).getUrl();
 
-        Glide.with(context)
-                .load(images)
-                .apply(RequestOptions.circleCropTransform())
-                .into(holder.productImage);
+        if(productLists.get(position).getTitle() != null && productLists.get(position).getDescription() != null ) {
+            holder.productName.setText(productLists.get(position).getTitle());
+            holder.descrption.setText(productLists.get(position).getDescription());
+            String images = productLists.get(position).getImageHref();
+
+            Glide.with(context)
+                    .load(images)
+                    .apply(new RequestOptions().error(R.drawable.noimageicon))
+                    .into(holder.productImage);
+
+        }
 
     }
 
@@ -63,15 +66,12 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     }
 
     public interface OnItemClickListener {
-        void onClick(Result Item);
+        void onClick(DetailsResponse Item);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.productName)
         TextView productName;
-
-        @BindView(R.id.buttonDelete)
-        TextView buttonDelete;
 
         @BindView(R.id.descrption)
         TextView  descrption;
@@ -79,15 +79,13 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         @BindView(R.id.productImage)
         ImageView productImage;
 
-        @BindView(R.id.date)
-        TextView published_date;
 
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
 
-        public void click(final Result products, final OnItemClickListener listener) {
+        public void click(final DetailsResponse products, final OnItemClickListener listener) {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

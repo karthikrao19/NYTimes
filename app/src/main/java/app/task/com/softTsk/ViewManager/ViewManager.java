@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 
 import app.task.com.softTsk.Home.HomeActivity;
-import app.task.com.softTsk.ProductDetails.PostProduct;
 
 /**
  * Created by Raos on 6/14/2017.
@@ -32,17 +31,6 @@ public class ViewManager {
         intent = new Intent(activity, HomeActivity.class);
         setDisplay(activity, intent);
         activity.finish();
-        return intent;
-    }
-
-    /**
-     * @param activity
-     * @return
-     */
-    public Intent gotoProductDetailsView(Activity activity, String url) {
-        intent = new Intent(activity, PostProduct.class);
-        intent.putExtra("url", url);
-        setDisplay(activity, intent);
         return intent;
     }
 
